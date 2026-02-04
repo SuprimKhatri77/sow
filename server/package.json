@@ -7,14 +7,24 @@
     "dev": "node --watch ./src/index.js",
     "start": "node index.js",
     "build": "echo 'No build step required for Node.js server'",
-    "prod": "NODE_ENV=production node index.js"
+    "prod": "NODE_ENV=production node index.js",
+    "db:push": "drizzle-kit push",
+    "db:generate": "drizzle-kit generate",
+    "db:studio": "drizzle-kit studio",
+    "db:migrate": "tsx ./lib/db/migrate.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.21.0",
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
     "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.45.1",
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.8"
   }
 }
