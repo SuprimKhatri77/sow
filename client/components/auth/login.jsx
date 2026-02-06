@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import "./login.css";
 
 export function LoginPage() {
   const [language, setLanguage] = useState("en");
