@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router";
 
 import {
@@ -18,15 +18,31 @@ import {
   ChevronDown,
 } from "lucide-react";
 import "./Layout.css";
+import { useAuth } from "../../context/UseAuth";
 
 export function Layout() {
+  const { logout } = useAuth();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState("no");
+  const [currentLanguage, setCurrentLanguage] = useState("en");
+
+  useEffect(() => {
+    document.body.classList.add("price-list-page");
+    return () => document.body.classList.remove("price-list-page");
+  }, []);
 
   const languages = [
-    { code: "no", name: "Norsk Bokmål", flag: "norway" },
-    { code: "en", name: "English", flag: "uk" },
+    {
+      code: "sv",
+      name: "Svenska",
+      flag: "https://storage.123fakturere.no/public/flags/SE.png",
+    },
+    {
+      code: "en",
+      name: "English",
+      flag: "https://storage.123fakturere.no/public/flags/GB.png",
+    },
   ];
 
   const menuItems = [
@@ -91,12 +107,15 @@ export function Layout() {
             onClick={() => setLangDropdownOpen(!langDropdownOpen)}
           >
             <span className="language-label">{getCurrentLanguage().name}</span>
-            <div className={`flag-icon ${getCurrentLanguage().flag}`}></div>
+            <img
+              src={getCurrentLanguage().flag}
+              alt={`${getCurrentLanguage().name} flag`}
+              className="flag-icon"
+            />
             <ChevronDown
               size={16}
               className={`dropdown-icon ${langDropdownOpen ? "open" : ""}`}
             />
-
             {langDropdownOpen && (
               <div className="language-dropdown">
                 {getOtherLanguages().map((lang) => (
@@ -108,7 +127,11 @@ export function Layout() {
                       handleLanguageChange(lang.code);
                     }}
                   >
-                    <div className={`flag-icon ${lang.flag}`}></div>
+                    <img
+                      src={lang.flag}
+                      alt={`${lang.name} flag`}
+                      className="flag-icon"
+                    />
                     <span>{lang.name}</span>
                   </div>
                 ))}
@@ -118,7 +141,7 @@ export function Layout() {
         </div>
       </header>
 
-      <div className="main-content">
+      <div className="main-content-pricelist">
         <aside className={`sidebar ${menuOpen ? "open" : ""}`}>
           <div className="menu-header desktop-only">Menu</div>
           {menuItems.map((item, index) => {
@@ -126,6 +149,11 @@ export function Layout() {
             return (
               <div
                 key={index}
+                onClick={() => {
+                  if (item.path === "/logout") {
+                    logout();
+                  }
+                }}
                 className={`menu-item ${isActive(item.path) ? "active" : ""} ${item.disabled ? "disabled" : ""}`}
               >
                 <IconComponent className="menu-icon" size={20} />
