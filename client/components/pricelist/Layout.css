@@ -3,8 +3,8 @@
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  background: white;
+body.price-list-page {
+  background: white !important;
 }
 .app-container {
   width: 100%;
@@ -83,16 +83,15 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
   cursor: pointer;
-  transition: background 0.2s ease;
   position: relative;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
 }
 
 .language-switcher:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .language-label {
@@ -100,8 +99,16 @@ body {
   font-weight: 500;
 }
 
+.flag-icon {
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
+  display: block;
+}
+
 .dropdown-icon {
-  transition: transform 0.2s ease;
+  transition: transform 0.2s;
 }
 
 .dropdown-icon.open {
@@ -113,177 +120,43 @@ body {
   top: calc(100% + 8px);
   right: 0;
   background: white;
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  min-width: 180px;
-  overflow: hidden;
+  min-width: 160px;
   z-index: 1000;
+  overflow: hidden;
 }
 
 .language-option {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 16px;
-  color: #333;
+  padding: 10px 14px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background-color 0.2s;
 }
 
 .language-option:hover {
-  background: #f5f5f5;
+  background-color: #f5f5f5;
+}
+
+.language-option .flag-icon {
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
 }
 
 .language-option span {
   font-size: 14px;
+  color: #333;
 }
 
-.flag-icon {
-  width: 28px;
-  height: 20px;
-  border-radius: 3px;
-  background-color: #e53935;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.flag-icon.norway::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    linear-gradient(
-      to right,
-      transparent 35%,
-      white 35%,
-      white 42%,
-      transparent 42%
-    ),
-    linear-gradient(
-      to bottom,
-      transparent 40%,
-      white 40%,
-      white 50%,
-      transparent 50%
-    );
-}
-
-.flag-icon.norway::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    linear-gradient(
-      to right,
-      transparent 37%,
-      #00247d 37%,
-      #00247d 40%,
-      transparent 40%
-    ),
-    linear-gradient(
-      to bottom,
-      transparent 42%,
-      #00247d 42%,
-      #00247d 48%,
-      transparent 48%
-    );
-}
-
-.flag-icon.uk {
-  background: white;
-  border: 1px solid #ddd;
-}
-
-.flag-icon.uk::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to bottom, #012169 0%, #012169 100%),
-    linear-gradient(
-      45deg,
-      transparent 30%,
-      white 30%,
-      white 32%,
-      #c8102e 32%,
-      #c8102e 38%,
-      white 38%,
-      white 40%,
-      transparent 40%
-    ),
-    linear-gradient(
-      -45deg,
-      transparent 30%,
-      white 30%,
-      white 32%,
-      #c8102e 32%,
-      #c8102e 38%,
-      white 38%,
-      white 40%,
-      transparent 40%
-    ),
-    linear-gradient(
-      45deg,
-      transparent 60%,
-      white 60%,
-      white 62%,
-      #c8102e 62%,
-      #c8102e 68%,
-      white 68%,
-      white 70%,
-      transparent 70%
-    ),
-    linear-gradient(
-      -45deg,
-      transparent 60%,
-      white 60%,
-      white 62%,
-      #c8102e 62%,
-      #c8102e 68%,
-      white 68%,
-      white 70%,
-      transparent 70%
-    );
-}
-
-.flag-icon.uk::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      to right,
-      transparent 42%,
-      white 42%,
-      white 46%,
-      #c8102e 46%,
-      #c8102e 54%,
-      white 54%,
-      white 58%,
-      transparent 58%
-    ),
-    linear-gradient(
-      to bottom,
-      transparent 42%,
-      white 42%,
-      white 46%,
-      #c8102e 46%,
-      #c8102e 54%,
-      white 54%,
-      white 58%,
-      transparent 58%
-    );
-}
-
-.main-content {
+.main-content-pricelist {
   display: flex;
-  align-items: start;
+  align-items: start !important;
+  justify-content: start !important;
   min-height: calc(100vh - 76px);
 }
 

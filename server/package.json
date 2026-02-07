@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node --watch ./src/index.js",
-    "start": "node index.js",
+    "start": "node ./src/index.js",
     "build": "echo 'No build step required for Node.js server'",
     "prod": "NODE_ENV=production node index.js",
     "db:push": "drizzle-kit push",
