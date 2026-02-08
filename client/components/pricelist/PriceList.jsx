@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Search,
   Plus,
@@ -12,262 +12,13 @@ import {
 import "./Pricelist.css";
 
 export function PriceListPage() {
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      articleNo: "1234567890",
-      product: "Professional Camera DSLR 5000",
-      inPrice: "900500",
-      price: "1500800",
-      unit: "piece",
-      inStock: "25",
-      description: "High-end professional camera",
-    },
-    {
-      id: 2,
-      articleNo: "2345678901",
-      product: "Laptop Computer i7 16GB RAM",
-      inPrice: "1200000",
-      price: "1800000",
-      unit: "piece",
-      inStock: "15",
-      description: "Business laptop",
-    },
-    {
-      id: 3,
-      articleNo: "3456789012",
-      product: "Wireless Mouse Ergonomic",
-      inPrice: "15000",
-      price: "25000",
-      unit: "piece",
-      inStock: "150",
-      description: "Comfortable wireless mouse",
-    },
-    {
-      id: 4,
-      articleNo: "4567890123",
-      product: "Mechanical Keyboard RGB",
-      inPrice: "45000",
-      price: "75000",
-      unit: "piece",
-      inStock: "80",
-      description: "Gaming mechanical keyboard",
-    },
-    {
-      id: 5,
-      articleNo: "5678901234",
-      product: "External Hard Drive 2TB",
-      inPrice: "80000",
-      price: "120000",
-      unit: "piece",
-      inStock: "60",
-      description: "Portable storage device",
-    },
-    {
-      id: 6,
-      articleNo: "6789012345",
-      product: "USB-C Hub Multiport Adapter",
-      inPrice: "35000",
-      price: "55000",
-      unit: "piece",
-      inStock: "200",
-      description: "Multi-port USB hub",
-    },
-    {
-      id: 7,
-      articleNo: "7890123456",
-      product: "Noise Cancelling Headphones",
-      inPrice: "180000",
-      price: "280000",
-      unit: "piece",
-      inStock: "45",
-      description: "Premium headphones",
-    },
-    {
-      id: 8,
-      articleNo: "8901234567",
-      product: "Smartphone Case Premium",
-      inPrice: "12000",
-      price: "22000",
-      unit: "piece",
-      inStock: "300",
-      description: "Protective phone case",
-    },
-    {
-      id: 9,
-      articleNo: "9012345678",
-      product: "Tablet 10 inch Android",
-      inPrice: "250000",
-      price: "380000",
-      unit: "piece",
-      inStock: "35",
-      description: "Mid-range tablet",
-    },
-    {
-      id: 10,
-      articleNo: "0123456789",
-      product: "Smartwatch Fitness Tracker",
-      inPrice: "95000",
-      price: "150000",
-      unit: "piece",
-      inStock: "90",
-      description: "Activity tracking watch",
-    },
-    {
-      id: 11,
-      articleNo: "1122334455",
-      product: "Webcam HD 1080p",
-      inPrice: "42000",
-      price: "68000",
-      unit: "piece",
-      inStock: "120",
-      description: "High definition webcam",
-    },
-    {
-      id: 12,
-      articleNo: "2233445566",
-      product: "Monitor 27 inch 4K",
-      inPrice: "320000",
-      price: "480000",
-      unit: "piece",
-      inStock: "28",
-      description: "Ultra HD monitor",
-    },
-    {
-      id: 13,
-      articleNo: "3344556677",
-      product: "Graphics Card RTX 3060",
-      inPrice: "450000",
-      price: "680000",
-      unit: "piece",
-      inStock: "12",
-      description: "Gaming graphics card",
-    },
-    {
-      id: 14,
-      articleNo: "4455667788",
-      product: "SSD 1TB NVMe",
-      inPrice: "85000",
-      price: "135000",
-      unit: "piece",
-      inStock: "75",
-      description: "Fast solid state drive",
-    },
-    {
-      id: 15,
-      articleNo: "5566778899",
-      product: "RAM DDR4 16GB Kit",
-      inPrice: "65000",
-      price: "95000",
-      unit: "piece",
-      inStock: "95",
-      description: "Memory upgrade kit",
-    },
-    {
-      id: 16,
-      articleNo: "6677889900",
-      product: "Wireless Charger Pad",
-      inPrice: "18000",
-      price: "32000",
-      unit: "piece",
-      inStock: "180",
-      description: "Fast wireless charging",
-    },
-    {
-      id: 17,
-      articleNo: "7788990011",
-      product: "Bluetooth Speaker Portable",
-      inPrice: "55000",
-      price: "89000",
-      unit: "piece",
-      inStock: "65",
-      description: "Waterproof speaker",
-    },
-    {
-      id: 18,
-      articleNo: "8899001122",
-      product: "Desk Lamp LED Adjustable",
-      inPrice: "28000",
-      price: "45000",
-      unit: "piece",
-      inStock: "110",
-      description: "Eye-care desk lamp",
-    },
-    {
-      id: 19,
-      articleNo: "9900112233",
-      product: "Power Bank 20000mAh",
-      inPrice: "38000",
-      price: "62000",
-      unit: "piece",
-      inStock: "140",
-      description: "Portable battery pack",
-    },
-    {
-      id: 20,
-      articleNo: "0011223344",
-      product: "Router WiFi 6 Dual Band",
-      inPrice: "120000",
-      price: "185000",
-      unit: "piece",
-      inStock: "42",
-      description: "High-speed router",
-    },
-    {
-      id: 21,
-      articleNo: "1231231234",
-      product: "Microphone USB Condenser",
-      inPrice: "78000",
-      price: "125000",
-      unit: "piece",
-      inStock: "55",
-      description: "Studio quality mic",
-    },
-    {
-      id: 22,
-      articleNo: "2342342345",
-      product: "Cable Organizer Set",
-      inPrice: "8000",
-      price: "15000",
-      unit: "set",
-      inStock: "250",
-      description: "Cable management solution",
-    },
-    {
-      id: 23,
-      articleNo: "3453453456",
-      product: "Screen Protector Tempered Glass",
-      inPrice: "5000",
-      price: "12000",
-      unit: "piece",
-      inStock: "400",
-      description: "Phone screen protection",
-    },
-    {
-      id: 24,
-      articleNo: "4564564567",
-      product: "Laptop Stand Aluminum",
-      inPrice: "32000",
-      price: "52000",
-      unit: "piece",
-      inStock: "88",
-      description: "Ergonomic laptop stand",
-    },
-    {
-      id: 25,
-      articleNo: "5675675678",
-      product: "Gaming Chair Ergonomic",
-      inPrice: "280000",
-      price: "420000",
-      unit: "piece",
-      inStock: "18",
-      description: "Professional gaming chair",
-    },
-  ]);
-
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchArticle, setSearchArticle] = useState("");
   const [searchProduct, setSearchProduct] = useState("");
+  const [formErrors, setFormErrors] = useState([]);
   const [newProduct, setNewProduct] = useState({
     articleNo: "",
     product: "",
@@ -278,23 +29,117 @@ export function PriceListPage() {
     description: "",
   });
 
-  const handleAddProduct = (e) => {
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("http://localhost:5000/api/products");
+      if (!response.ok) {
+        throw new Error("Failed to fetch products");
+      }
+      const data = await response.json();
+
+      const transformedData = data.map((item) => ({
+        id: item.id,
+        articleNo: item.id,
+        product: item.name,
+        inPrice: item.inPrice,
+        price: item.price,
+        unit: item.unit,
+        inStock: item.inStock.toString(),
+        description: item.description,
+      }));
+
+      setProducts(transformedData);
+      setError(null);
+    } catch (err) {
+      console.error("Error fetching products:", err);
+      setError("Failed to load products. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAddProduct = async (e) => {
     e.preventDefault();
-    const product = {
-      id: products.length + 1,
-      ...newProduct,
-    };
-    setProducts([...products, product]);
-    setNewProduct({
-      articleNo: "",
-      product: "",
-      inPrice: "",
-      price: "",
-      unit: "piece",
-      inStock: "",
-      description: "",
-    });
-    setShowAddForm(false);
+    setFormErrors([]);
+
+    const errors = [];
+
+    if (!newProduct.articleNo || newProduct.articleNo.trim() === "") {
+      errors.push("Article number is required");
+    }
+
+    if (!newProduct.product || newProduct.product.trim() === "") {
+      errors.push("Product/Service name is required");
+    }
+
+    if (
+      !newProduct.price ||
+      isNaN(newProduct.price) ||
+      parseFloat(newProduct.price) <= 0
+    ) {
+      errors.push("Valid sale price is required");
+    }
+
+    if (
+      newProduct.inPrice &&
+      (isNaN(newProduct.inPrice) || parseFloat(newProduct.inPrice) < 0)
+    ) {
+      errors.push("In price must be a valid positive number");
+    }
+
+    if (
+      newProduct.inStock &&
+      (isNaN(newProduct.inStock) || parseInt(newProduct.inStock) < 0)
+    ) {
+      errors.push("In stock must be a valid positive number");
+    }
+
+    if (errors.length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newProduct),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        if (errorData.errors) {
+          setFormErrors(errorData.errors);
+        } else {
+          throw new Error("Failed to add product");
+        }
+        return;
+      }
+
+      setNewProduct({
+        articleNo: "",
+        product: "",
+        inPrice: "",
+        price: "",
+        unit: "piece",
+        inStock: "",
+        description: "",
+      });
+      setShowAddForm(false);
+      setFormErrors([]);
+
+      fetchProducts();
+    } catch (err) {
+      console.error("Error adding product:", err);
+      setFormErrors(["Failed to add product. Please try again."]);
+    }
   };
 
   const filteredProducts = products.filter((product) => {
@@ -306,6 +151,29 @@ export function PriceListPage() {
       .includes(searchProduct.toLowerCase());
     return matchesArticle && matchesProduct;
   });
+
+  if (loading) {
+    return (
+      <div className="price-list-content">
+        <div style={{ textAlign: "center", padding: "2rem" }}>
+          Loading products...
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="price-list-content">
+        <div style={{ textAlign: "center", padding: "2rem", color: "red" }}>
+          {error}
+          <button onClick={fetchProducts} style={{ marginLeft: "1rem" }}>
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="price-list-content">
@@ -363,6 +231,28 @@ export function PriceListPage() {
                 <X size={24} />
               </button>
             </div>
+
+            {formErrors.length > 0 && (
+              <div
+                style={{
+                  backgroundColor: "#fee",
+                  border: "1px solid #fcc",
+                  borderRadius: "4px",
+                  padding: "1rem",
+                  marginBottom: "1rem",
+                }}
+              >
+                <strong>Please fix the following errors:</strong>
+                <ul style={{ margin: "0.5rem 0 0 1.5rem", padding: 0 }}>
+                  {formErrors.map((error, index) => (
+                    <li key={index} style={{ color: "#c00" }}>
+                      {error}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <form onSubmit={handleAddProduct} className="product-form">
               <div className="form-row">
                 <div className="form-group">
@@ -381,7 +271,7 @@ export function PriceListPage() {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Unit</label>
+                  <label>Unit*</label>
                   <select
                     value={newProduct.unit}
                     onChange={(e) =>
@@ -390,7 +280,7 @@ export function PriceListPage() {
                   >
                     <option value="piece">Piece</option>
                     <option value="set">Set</option>
-                    <option value="kg">Kilogram</option>
+                    <option value="kilogram">Kilogram</option>
                     <option value="meter">Meter</option>
                     <option value="liter">Liter</option>
                   </select>
@@ -415,6 +305,8 @@ export function PriceListPage() {
                   <label>In Price</label>
                   <input
                     type="number"
+                    step="0.01"
+                    min="0"
                     value={newProduct.inPrice}
                     onChange={(e) =>
                       setNewProduct({ ...newProduct, inPrice: e.target.value })
@@ -426,6 +318,8 @@ export function PriceListPage() {
                   <label>Sale Price*</label>
                   <input
                     type="number"
+                    step="0.01"
+                    min="0.01"
                     required
                     value={newProduct.price}
                     onChange={(e) =>
@@ -438,6 +332,7 @@ export function PriceListPage() {
                   <label>In Stock</label>
                   <input
                     type="number"
+                    min="0"
                     value={newProduct.inStock}
                     onChange={(e) =>
                       setNewProduct({ ...newProduct, inStock: e.target.value })
@@ -466,7 +361,10 @@ export function PriceListPage() {
                 <button
                   type="button"
                   className="btn-cancel"
-                  onClick={() => setShowAddForm(false)}
+                  onClick={() => {
+                    setShowAddForm(false);
+                    setFormErrors([]);
+                  }}
                 >
                   Cancel
                 </button>
@@ -496,27 +394,38 @@ export function PriceListPage() {
               </tr>
             </thead>
             <tbody>
-              {filteredProducts.map((product) => (
-                <tr key={product.id}>
-                  <td>
-                    <button className="row-action-btn">
-                      <ArrowRight size={16} />
-                    </button>
-                  </td>
-                  <td>{product.articleNo}</td>
-                  <td>{product.product}</td>
-                  <td>{product.inPrice}</td>
-                  <td>{product.price}</td>
-                  <td>{product.unit}</td>
-                  <td>{product.inStock}</td>
-                  <td>{product.description}</td>
-                  <td>
-                    <button className="more-btn">
-                      <MoreVertical size={18} />
-                    </button>
+              {filteredProducts.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan="9"
+                    style={{ textAlign: "center", padding: "2rem" }}
+                  >
+                    No products found
                   </td>
                 </tr>
-              ))}
+              ) : (
+                filteredProducts.map((product) => (
+                  <tr key={product.id}>
+                    <td>
+                      <button className="row-action-btn">
+                        <ArrowRight size={16} />
+                      </button>
+                    </td>
+                    <td>{product.articleNo}</td>
+                    <td>{product.product}</td>
+                    <td>{product.inPrice}</td>
+                    <td>{product.price}</td>
+                    <td>{product.unit}</td>
+                    <td>{product.inStock}</td>
+                    <td>{product.description}</td>
+                    <td>
+                      <button className="more-btn">
+                        <MoreVertical size={18} />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
