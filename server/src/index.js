@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import productsRoutes from "./routes/products.js";
+import languagesRoutes from "./routes/language.js";
 
 const allowedOrigins = [
   "http://localhost:5173",
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api", productsRoutes);
+app.use("/api", languagesRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

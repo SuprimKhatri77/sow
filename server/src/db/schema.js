@@ -21,6 +21,16 @@ export const users = pgTable("users", {
     .notNull(),
 });
 
+export const languages = pgTable("languages", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+});
+
 export const productUnitEnum = pgEnum("unit", [
   "piece",
   "set",
