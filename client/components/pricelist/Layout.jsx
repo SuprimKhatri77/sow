@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import "./Layout.css";
 import { useAuth } from "../../context/UseAuth";
+import { useRef } from "react";
 
 export function Layout() {
   const { logout } = useAuth();
@@ -26,11 +27,30 @@ export function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState("en");
+  const sidebarRef = useRef(null);
 
   useEffect(() => {
     document.body.classList.add("price-list-page");
     return () => document.body.classList.remove("price-list-page");
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        menuOpen &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuOpen]);
 
   const languages = [
     {
@@ -142,7 +162,7 @@ export function Layout() {
       </header>
 
       <div className="main-content-pricelist">
-        <aside className={`sidebar ${menuOpen ? "open" : ""}`}>
+        <aside ref={sidebarRef} className={`sidebar ${menuOpen ? "open" : ""}`}>
           <div className="menu-header desktop-only">Menu</div>
           {menuItems.map((item, index) => {
             const IconComponent = item.icon;

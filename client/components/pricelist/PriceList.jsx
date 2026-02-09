@@ -21,7 +21,6 @@ export function PriceListPage() {
   const [searchProduct, setSearchProduct] = useState("");
   const [formErrors, setFormErrors] = useState([]);
   const [newProduct, setNewProduct] = useState({
-    articleNo: "",
     product: "",
     inPrice: "",
     price: "",
@@ -69,10 +68,6 @@ export function PriceListPage() {
     setFormErrors([]);
 
     const errors = [];
-
-    if (!newProduct.articleNo || newProduct.articleNo.trim() === "") {
-      errors.push("Article number is required");
-    }
 
     if (!newProduct.product || newProduct.product.trim() === "") {
       errors.push("Product/Service name is required");
@@ -125,7 +120,6 @@ export function PriceListPage() {
       }
 
       setNewProduct({
-        articleNo: "",
         product: "",
         inPrice: "",
         price: "",
@@ -255,39 +249,6 @@ export function PriceListPage() {
             )}
 
             <form onSubmit={handleAddProduct} className="product-form">
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Article No.*</label>
-                  <input
-                    type="text"
-                    required
-                    value={newProduct.articleNo}
-                    onChange={(e) =>
-                      setNewProduct({
-                        ...newProduct,
-                        articleNo: e.target.value,
-                      })
-                    }
-                    placeholder="e.g., 1234567890"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Unit*</label>
-                  <select
-                    value={newProduct.unit}
-                    onChange={(e) =>
-                      setNewProduct({ ...newProduct, unit: e.target.value })
-                    }
-                  >
-                    <option value="piece">Piece</option>
-                    <option value="set">Set</option>
-                    <option value="kilogram">Kilogram</option>
-                    <option value="meter">Meter</option>
-                    <option value="liter">Liter</option>
-                  </select>
-                </div>
-              </div>
-
               <div className="form-group">
                 <label>Product/Service Name*</label>
                 <input
@@ -329,6 +290,23 @@ export function PriceListPage() {
                     placeholder="Selling price"
                   />
                 </div>
+              </div>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Unit*</label>
+                  <select
+                    value={newProduct.unit}
+                    onChange={(e) =>
+                      setNewProduct({ ...newProduct, unit: e.target.value })
+                    }
+                  >
+                    <option value="piece">Piece</option>
+                    <option value="set">Set</option>
+                    <option value="kilogram">Kilogram</option>
+                    <option value="meter">Meter</option>
+                    <option value="liter">Liter</option>
+                  </select>
+                </div>
                 <div className="form-group">
                   <label>In Stock</label>
                   <input
@@ -336,7 +314,10 @@ export function PriceListPage() {
                     min="0"
                     value={newProduct.inStock}
                     onChange={(e) =>
-                      setNewProduct({ ...newProduct, inStock: e.target.value })
+                      setNewProduct({
+                        ...newProduct,
+                        inStock: e.target.value,
+                      })
                     }
                     placeholder="Quantity"
                   />

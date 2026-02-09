@@ -17,14 +17,9 @@ router.get("/products", async (req, res) => {
 
 router.post("/products", async (req, res) => {
   try {
-    const { articleNo, product, inPrice, price, unit, inStock, description } =
-      req.body;
+    const { product, inPrice, price, unit, inStock, description } = req.body;
 
     const errors = [];
-
-    if (!articleNo || articleNo.trim() === "") {
-      errors.push("Article number is required");
-    }
 
     if (!product || product.trim() === "") {
       errors.push("Product/Service name is required");
