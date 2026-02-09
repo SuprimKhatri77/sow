@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 
 import "./Pricelist.css";
+import { API_BASE_URL } from "../../services/api";
 
 export function PriceListPage() {
   const [products, setProducts] = useState([]);
@@ -36,7 +37,7 @@ export function PriceListPage() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/api/products");
+      const response = await fetch(`${API_BASE_URL}/api/products`);
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
@@ -105,7 +106,7 @@ export function PriceListPage() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/products", {
+      const response = await fetch(`${API_BASE_URL}/api/products`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
