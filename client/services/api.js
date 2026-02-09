@@ -84,3 +84,14 @@ export const apiClient = {
     return response.json();
   },
 };
+
+export const languageApi = {
+  getAll: async () => {
+    const response = await fetch(`${API_BASE_URL}/api/languages`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch languages");
+    }
+    const data = await response.json();
+    return data;
+  },
+};

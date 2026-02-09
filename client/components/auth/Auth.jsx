@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../../context/UseAuth.jsx";
-import { authApi } from "../../services/api";
+import { authApi, languageApi } from "../../services/api";
 import "./auth.css";
 
 export function AuthPage() {
@@ -10,6 +10,7 @@ export function AuthPage() {
 
   const [isLogin, setIsLogin] = useState(true);
   const [language, setLanguage] = useState("en");
+  const [availableLanguages, setAvailableLanguages] = useState([]);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -41,6 +42,52 @@ export function AuthPage() {
       navigate("/price-list");
     }
   }, [isAuthenticated, navigate]);
+
+  useEffect(() => {
+    const fetchLanguages = async () => {
+      try {
+        const languages = await languageApi.getAll();
+        setAvailableLanguages(languages);
+      } catch (error) {
+        console.error("Failed to fetch languages:", error);
+        setAvailableLanguages([
+          { id: "1", name: "english" },
+          { id: "2", name: "svenska" },
+        ]);
+      }
+    };
+    fetchLanguages();
+  }, []);
+
+  const getLanguageCode = (langName) => {
+    const name = langName.toLowerCase();
+    if (name === "english") return "en";
+    if (name === "svenska") return "sv";
+    return "en";
+  };
+
+  const getLanguageFlagUrl = (langName) => {
+    const name = langName.toLowerCase();
+    if (name === "english")
+      return "https://storage.123fakturere.no/public/flags/GB.png";
+    if (name === "svenska")
+      return "https://storage.123fakturere.no/public/flags/SE.png";
+    return "";
+  };
+
+  const getLanguageFlagAlt = (langName) => {
+    const name = langName.toLowerCase();
+    if (name === "english") return "British Flag";
+    if (name === "svenska") return "Swedish Flag";
+    return "";
+  };
+
+  const getLanguageDisplayName = (langName) => {
+    const name = langName.toLowerCase();
+    if (name === "english") return "English";
+    if (name === "svenska") return "Svenska";
+    return langName;
+  };
 
   const translations = {
     en: {
@@ -443,18 +490,21 @@ export function AuthPage() {
 
             {showLangDropdown && (
               <div className="lang-dropdown">
-                <button
-                  className={language === "sv" ? "active" : ""}
-                  onClick={() => switchLanguage("sv")}
-                >
-                  {t.swedish} 🇸🇪
-                </button>
-                <button
-                  className={language === "en" ? "active" : ""}
-                  onClick={() => switchLanguage("en")}
-                >
-                  {t.english} 🇬🇧
-                </button>
+                {availableLanguages.map((lang) => (
+                  <button
+                    key={lang.id}
+                    className={
+                      getLanguageCode(lang.name) === language ? "active" : ""
+                    }
+                    onClick={() => switchLanguage(getLanguageCode(lang.name))}
+                  >
+                    {getLanguageDisplayName(lang.name)}{" "}
+                    <img
+                      src={getLanguageFlagUrl(lang.name)}
+                      alt={getLanguageFlagAlt(lang.name)}
+                    />
+                  </button>
+                ))}
               </div>
             )}
           </div>
