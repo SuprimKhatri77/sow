@@ -3,9 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body.price-list-page {
   background: white !important;
 }
+
 .app-container {
   width: 100%;
   min-height: 100vh;
@@ -200,7 +202,7 @@ body.price-list-page {
 }
 
 .menu-item.active .menu-icon {
-  filter: brightness(0.8) Stylessepia(1) hue-rotate(180deg) saturate(5);
+  filter: brightness(0.8) sepia(1) hue-rotate(180deg) saturate(5);
 }
 
 .menu-item.disabled {
