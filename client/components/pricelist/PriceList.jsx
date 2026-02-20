@@ -156,28 +156,30 @@ export function PriceListPage() {
   };
 
   const handleFieldChange = (productId, field, value) => {
-    const key = `${productId}-${field}`;
-
-    setEditingValues((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-
     setProducts((prev) =>
       prev.map((p) => (p.id === productId ? { ...p, [field]: value } : p)),
     );
+
+    setEditingValues((prev) => ({
+      ...prev,
+      [productId]: {
+        ...prev[productId],
+        [field]: value,
+      },
+    }));
   };
 
   const debouncedEditingValues = useDebounce(editingValues, 1000);
 
   useEffect(() => {
     const saveChanges = async () => {
-      for (const [key, value] of Object.entries(debouncedEditingValues)) {
-        const [productId, field] = key.split("-");
-
+      for (const productId of Object.keys(debouncedEditingValues)) {
         const product = products.find((p) => p.id === productId);
         if (!product) continue;
-
+        console.log(
+          "api url of prod being changed: ",
+          `${API_BASE_URL}/api/products/${productId}`,
+        );
         try {
           const updateData = {
             product: product.product,
@@ -187,9 +189,10 @@ export function PriceListPage() {
             inStock: product.inStock,
             description: product.description,
           };
+          console.log("updated data: ", updateData);
 
           const response = await fetch(
-            `${API_BASE_URL}/api/products/${productId}`,
+            `${API_BASE_URL}/api/products/${encodeURIComponent(productId)}`,
             {
               method: "PUT",
               headers: {
@@ -205,7 +208,7 @@ export function PriceListPage() {
 
           setEditingValues((prev) => {
             const newState = { ...prev };
-            delete newState[key];
+            delete newState[productId];
             return newState;
           });
         } catch (err) {
