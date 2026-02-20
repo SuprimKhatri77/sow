@@ -31,20 +31,13 @@ export const languages = pgTable("languages", {
     .notNull(),
 });
 
-export const productUnitEnum = pgEnum("unit", [
-  "piece",
-  "set",
-  "kilogram",
-  "meter",
-  "liter",
-]);
 export const products = pgTable("products", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   inPrice: numeric("in_price").notNull(),
   price: numeric("price").notNull(),
   inStock: integer("in_stock").notNull(),
-  unit: productUnitEnum("unit").notNull(),
+  unit: text("unit").notNull(),
   description: text("description").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
