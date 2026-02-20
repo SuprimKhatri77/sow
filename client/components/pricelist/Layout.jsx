@@ -66,23 +66,55 @@ export function Layout() {
   ];
 
   const menuItems = [
-    { icon: FileText, label: "Invoices", path: "/invoices" },
-    { icon: Users, label: "Customers", path: "/customers" },
-    { icon: Settings, label: "My Business", path: "/my-business" },
-    { icon: BookOpen, label: "Invoice Journal", path: "/invoice-journal" },
-    { icon: Tag, label: "Price List", path: "/price-list" },
-    { icon: Files, label: "Multiple Invoicing", path: "/multiple-invoicing" },
-    { icon: DollarSign, label: "Unpaid Invoices", path: "/unpaid-invoices" },
-    { icon: FileCheck, label: "Offer", path: "/offer" },
+    { icon: FileText, label: "Invoices", path: "/invoices", color: "#38bdf8" },
+    { icon: Users, label: "Customers", path: "/customers", color: "#10b981" },
+    {
+      icon: Settings,
+      label: "My Business",
+      path: "/my-business",
+      color: "#f59e0b",
+    },
+    {
+      icon: BookOpen,
+      label: "Invoice Journal",
+      path: "/invoice-journal",
+      color: "#a78bfa",
+    },
+    { icon: Tag, label: "Price List", path: "/price-list", color: "#0ea5e9" },
+    {
+      icon: Files,
+      label: "Multiple Invoicing",
+      path: "/multiple-invoicing",
+      color: "#ef4444",
+    },
+    {
+      icon: DollarSign,
+      label: "Unpaid Invoices",
+      path: "/unpaid-invoices",
+      color: "#22c55e",
+    },
+    { icon: FileCheck, label: "Offer", path: "/offer", color: "#06b6d4" },
     {
       icon: Package,
       label: "Inventory Control",
       path: "/inventory-control",
       disabled: true,
+      color: "#9ca3af",
     },
-    { icon: User, label: "Member Invoicing", path: "#", disabled: true },
-    { icon: ArrowUpDown, label: "Import/Export", path: "/import-export" },
-    { icon: LogOut, label: "Log out", path: "/logout" },
+    {
+      icon: User,
+      label: "Member Invoicing",
+      path: "#",
+      disabled: true,
+      color: "#9ca3af",
+    },
+    {
+      icon: ArrowUpDown,
+      label: "Import/Export",
+      path: "/import-export",
+      color: "#6366f1",
+    },
+    { icon: LogOut, label: "Log out", path: "/logout", color: "#f43f5e" },
   ];
 
   const isActive = (path) => {
@@ -176,7 +208,11 @@ export function Layout() {
                 }}
                 className={`menu-item ${isActive(item.path) ? "active" : ""} ${item.disabled ? "disabled" : ""}`}
               >
-                <IconComponent className="menu-icon" size={20} />
+                <IconComponent
+                  className="menu-icon"
+                  size={20}
+                  color={item.color}
+                />
                 <span className="menu-label">{item.label}</span>
               </div>
             );

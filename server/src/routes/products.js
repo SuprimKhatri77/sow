@@ -8,7 +8,9 @@ const router = Router();
 
 router.get("/products", async (req, res) => {
   try {
-    const allProducts = await db.select().from(products);
+    const allProducts = await db.query.products.findMany({
+      orderBy: (product, { desc }) => [desc(product.createdAt)],
+    });
     res.json(allProducts);
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -30,10 +32,7 @@ router.post("/products", async (req, res) => {
       errors.push("Valid sale price is required");
     }
 
-    if (
-      !unit ||
-      !["piece", "set", "kilogram", "meter", "liter"].includes(unit)
-    ) {
+    if (!unit) {
       errors.push("Valid unit is required");
     }
 
@@ -86,13 +85,6 @@ router.put("/products/:id", async (req, res) => {
 
     if (!price || isNaN(price) || parseFloat(price) <= 0) {
       errors.push("Valid sale price is required");
-    }
-
-    if (
-      !unit ||
-      !["piece", "set", "kilogram", "meter", "liter"].includes(unit)
-    ) {
-      errors.push("Valid unit is required");
     }
 
     if (inPrice && (isNaN(inPrice) || parseFloat(inPrice) < 0)) {
